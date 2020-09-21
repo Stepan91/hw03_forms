@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import CreateView
 from .models import Post, Group
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -16,6 +17,7 @@ def group_posts(request, slug):
     return render(request, 'group.html', {'group': group, 'posts': posts})
 
 
+@login_required
 def new_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
